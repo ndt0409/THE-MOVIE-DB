@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">TheMovieDB</string>
-    \
+    <string name="movie">Movie</string>
+    <string name="favorite">Favorite</string>
+    <string name="popular">Popular</string>
+    <string name="movies">Movies</string>
+    <string name="upcoming">Upcoming</string>
+
 </resources>
