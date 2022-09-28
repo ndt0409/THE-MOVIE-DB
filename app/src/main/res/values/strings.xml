@@ -5,5 +5,14 @@
     <string name="popular">Popular</string>
     <string name="movies">Movies</string>
     <string name="upcoming">Upcoming</string>
+    <string name="check_internet_fail">check internet fail</string>
+    <string name="_8">8.8</string>
+    <string name="vote_text">vote text</string>
+    <string name="results_found">results found</string>
+    <string name="trailer">trailer</string>
+    <string name="produces">produces</string>
+    <string name="casts">casts</string>
+    <string name="vote">vote</string>
+    <string name="release_date">release_date</string>
 
 </resources>

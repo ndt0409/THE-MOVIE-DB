@@ -14,4 +14,25 @@ abstract class BaseAdapter<T, VH : BaseViewHolder<T>> : RecyclerView.Adapter<VH>
 
     private fun getItem(position: Int): T? =
         if (position in 0 until itemCount) items[position] else null
+
+    fun updateData(newItems: List<T>) {
+        items.apply {
+            if (isNotEmpty()) clear()
+            addAll(newItems)
+        }
+        notifyDataSetChanged()
+    }
+
+    fun insertData(insertItems: List<T>) = with(items) {
+        val firstPosition = size
+        addAll(insertItems)
+        val secondPosition = size
+        notifyItemRangeInserted(firstPosition, secondPosition - 1)
+    }
+
+    fun removeData(position: Int) {
+        items.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, itemCount)
+    }
 }

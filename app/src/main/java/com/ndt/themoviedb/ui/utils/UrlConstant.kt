@@ -14,4 +14,12 @@ object UrlConstant {
     const val BASE_UPCOMING = "/movie/upcoming"
     const val BASE_PAGE = "?page=1"
     const val BASE_API_KEY = "?api_key" + BuildConfig.API_KEY
+    const val BASE_TIME_OUT = 15000
+    const val BASE_METHOD_GET = "GET"
+    const val BASE_LANGUAGE = "&language=vi-VN"
+    const val BASE_DISCOVER_MOVIE = "/discover/movie"
+    const val BASE_DELAY_SLIDE = 4000L
+
+    const val BASE_PAGE_DEFAULT = 1
+    const val BASE_QUERY_DEFAULT = "1"
 }

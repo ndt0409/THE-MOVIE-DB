@@ -14,7 +14,7 @@ class ContainerFragment :
     private var startingPosition = 0
 
     override fun initData() {
-        TODO("Not yet implemented")
+        //TODO implement later
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,5 +64,3 @@ private fun FragmentActivity.slideLeftToRight(fragment: Fragment) {
         .replace(R.id.container_frame_layout, fragment)
         .commit()
 }
-
-
