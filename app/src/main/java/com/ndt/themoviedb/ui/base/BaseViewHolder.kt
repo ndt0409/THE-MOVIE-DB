@@ -1,10 +1,10 @@
 package com.ndt.themoviedb.ui.base
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 
-open class BaseViewHolder<T>(itemView: View, private val onItemClick: (T, Int) -> Unit) :
-    RecyclerView.ViewHolder(itemView) {
+open class BaseViewHolder<T>(binding: ViewBinding, private val onItemClick: (T, Int) -> Unit) :
+    RecyclerView.ViewHolder(binding.root) {
 
     private var itemData: T? = null
 

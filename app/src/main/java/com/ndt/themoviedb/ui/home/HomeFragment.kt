@@ -1,14 +1,15 @@
 package com.ndt.themoviedb.ui.home
 
-import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.google.android.material.tabs.TabLayout
 import com.ndt.themoviedb.R
 import com.ndt.themoviedb.data.model.Genres
 import com.ndt.themoviedb.data.model.Movie
 import com.ndt.themoviedb.data.repository.MovieRepository
+import com.ndt.themoviedb.data.source.local.MovieLocalDataSource
 import com.ndt.themoviedb.data.source.remote.MovieRemoteDataSource
 import com.ndt.themoviedb.databinding.FragmentHomeBinding
 import com.ndt.themoviedb.ui.base.BaseFragment
@@ -16,14 +17,17 @@ import com.ndt.themoviedb.ui.home.adapter.MovieAdapter
 import com.ndt.themoviedb.ui.home.adapter.SliderViewPagerAdapter
 import com.ndt.themoviedb.ui.utils.NetworkUtil
 import com.ndt.themoviedb.ui.utils.OnClickListener
-import com.ndt.themoviedb.ui.utils.UrlConstant
-import kotlinx.android.synthetic.main.fragment_home.view.*
+import com.ndt.themoviedb.ui.utils.constant.UrlConstant
+import com.ndt.themoviedb.ui.utils.extension.addFragment
 import java.util.*
+import kotlin.concurrent.schedule
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),
     HomeContract.View, OnClickListener<Movie> {
 
     private lateinit var presenter: HomeContract.Presenter
+    private val upcomingAdapter: MovieAdapter by lazy { MovieAdapter() }
+    private val popularAdapter: MovieAdapter by lazy { MovieAdapter() }
     private val movieByIDAdapter: MovieAdapter by lazy { MovieAdapter() }
     private val movieSlideAdapter: SliderViewPagerAdapter by lazy { SliderViewPagerAdapter() }
     private var genresSelected = 0
@@ -32,48 +36,41 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         val movieRepository: MovieRepository =
             MovieRepository.getInstance(
                 MovieRemoteDataSource.getInstance(),
+                MovieLocalDataSource.getInstance()
             )
-         presenter = HomePresenter(movieRepository)
-        initAdapter()
+        presenter = HomePresenter(movieRepository)
+        presenter.setView(this)
+        activity?.let {
+            if (NetworkUtil.isConnectedToNetwork(it)) {
+                Timer().schedule(DELAY_TIME) {
+                    presenter.onStart()
+                }
+            } else {
+                onLoading(true)
+                val message = getString(R.string.check_internet_fail)
+                Toast.makeText(it, message, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewBinding.homeSwipeRefresh.setOnRefreshListener {
+            activity?.let {
+                if (NetworkUtil.isConnectedToNetwork(it)) {
+                    presenter.onStart()
+                    presenter.getMovie(
+                        UrlConstant.BASE_GENRES_ID,
+                        genresSelected.toString()
+                    )
+                } else {
+                    onLoading(true)
+                    val message = getString(R.string.check_internet_fail)
+                    Toast.makeText(it, message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
         onLoading(false)
-        initPresenter()
-        initRefresh()
     }
 
     override fun onGetGenresSuccess(genres: List<Genres>) {
-        initTabGenres(genres)
-    }
-
-    override fun onGetMoviesByGenresIDSuccess(movies: List<Movie>) {
-        movieByIDAdapter.updateData(movies)
-    }
-
-    override fun onError(exception: Exception?) {
-        exception?.let {
-            Toast.makeText(context, it.message.toString(), Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    override fun onLoading(isLoad: Boolean) {
-        view?.let {
-            if (isLoad) {
-                viewBinding.homeSwipeRefresh.isRefreshing = false
-                viewBinding.frameProgressBar.visibility = View.GONE
-            } else {
-                viewBinding.frameProgressBar.visibility = View.VISIBLE
-            }
-        }
-        view?.run {
-            if (isLoad) {
-                viewBinding.homeSwipeRefresh.isRefreshing = false
-                viewBinding.frameProgressBar.visibility = View.GONE
-            } else {
-                viewBinding.frameProgressBar.visibility = View.VISIBLE
-            }
-        }
-    }
-
-    private fun initTabGenres(genres: List<Genres>) {
         view?.run {
             if (viewBinding.movieByKeyTabLayout.tabCount == 0) {
                 activity?.let {
@@ -82,6 +79,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                         ContextCompat.getColor(it, R.color.color_orange)
                     )
                 }
+
                 for (element in genres) {
                     viewBinding.movieByKeyTabLayout.addTab(
                         viewBinding.movieByKeyTabLayout.newTab().setText(element.genresName)
@@ -114,11 +112,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                         }
 
                         override fun onTabUnselected(tab: TabLayout.Tab?) {
-                                //TODO implement later
+                            //TODO implement later
                         }
 
                         override fun onTabReselected(tab: TabLayout.Tab?) {
-                                //TODO implement later
+                            //TODO implement later
                         }
                     })
                 viewBinding.movieByKeyTabLayout.getTabAt(0)?.select()
@@ -126,10 +124,65 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
-    private fun initAdapter() {
+    override fun onGetMoviesNowPlayingSuccess(movies: List<Movie>) {
+        movieSlideAdapter.updateData(movies)
+    }
+
+    override fun onGetMoviesPopularSuccess(movies: List<Movie>) {
+        popularAdapter.updateData(movies)
+    }
+
+    override fun onGetMoviesByGenresIDSuccess(movies: List<Movie>) {
+        movieByIDAdapter.updateData(movies)
+    }
+
+    override fun onError(exception: Exception?) {
+        exception?.let {
+            Toast.makeText(context, it.message.toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onLoading(isLoad: Boolean) {
+        view?.let {
+            if (isLoad) {
+                viewBinding.homeSwipeRefresh.isRefreshing = false
+                viewBinding.frameProgressBar.isVisible = false
+            } else {
+                viewBinding.frameProgressBar.isVisible = true
+            }
+        }
         view?.run {
+            if (isLoad) {
+                viewBinding.homeSwipeRefresh.isRefreshing = false
+                viewBinding.frameProgressBar.isVisible = false
+            } else {
+                viewBinding.frameProgressBar.isVisible = true
+            }
+        }
+    }
+
+    override fun initAdapter() {
+        view?.run {
+            viewBinding.recyclerPopular.setHasFixedSize(true)
+            viewBinding.recyclerPopular.adapter = popularAdapter.apply {
+                onItemClick = { item, _ ->
+                    addFragment(item)
+                }
+            }
+            viewBinding.upcomingRecyclerView.setHasFixedSize(true)
+            viewBinding.upcomingRecyclerView.adapter = upcomingAdapter.apply {
+                onItemClick = { item, _ ->
+                    addFragment(item)
+                }
+            }
+            viewBinding.movieByGenresRecyclerView.setHasFixedSize(true)
+            viewBinding.movieByGenresRecyclerView.adapter = movieByIDAdapter.apply {
+                onItemClick = { item, _ ->
+                    addFragment(item)
+                }
+            }
             viewBinding.sliderViewPager.adapter = movieSlideAdapter
-            indicatorTabLayout.setupWithViewPager(
+            viewBinding.indicatorTabLayout.setupWithViewPager(
                 viewBinding.sliderViewPager,
                 true
             )
@@ -151,39 +204,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }, UrlConstant.BASE_DELAY_SLIDE, UrlConstant.BASE_DELAY_SLIDE)
     }
 
-    private fun initPresenter() {
-        presenter.setView(this)
-        activity?.let {
-            if (NetworkUtil.isConnectedToNetwork(it)) {
-                Handler().postDelayed({ presenter.onStart() }, DELAY_TIME)
-            } else {
-                onLoading(true)
-                val message = getString(R.string.check_internet_fail)
-                Toast.makeText(it, message, Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun initRefresh() {
-        viewBinding.homeSwipeRefresh.setOnRefreshListener {
-            activity?.let {
-                if (NetworkUtil.isConnectedToNetwork(it)) {
-                    presenter.onStart()
-                    presenter.getMovie(
-                        UrlConstant.BASE_GENRES_ID,
-                        genresSelected.toString()
-                    )
-                } else {
-                    onLoading(true)
-                    val message = getString(R.string.check_internet_fail)
-                    Toast.makeText(it, message, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
-
     override fun click(item: Movie?) {
-        //TODO implement later
+        item?.let { addFragment(it) }
     }
 
     companion object {

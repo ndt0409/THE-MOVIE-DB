@@ -3,25 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:background="@color/black">
 
     <include layout="@layout/toolbar_base" />
 
     <TextView
-        android:id="@+id/resultTextView"
-        android:layout_width="0dp"
+        android:id="@+id/text_result"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_8"
         android:textColor="@color/color_orange"
-        android:textSize="18sp"
+        android:textSize="@dimen/sp_18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBar" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listMovieRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/recycler_list_movie"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,8 +30,8 @@
         app:layout_constraintTop_toBottomOf="@+id/resultTextView" />
 
     <ProgressBar
-        android:id="@+id/loadingProgressBar"
-        android:layout_width="0dp"
+        android:id="@+id/progressbar_loading"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_8"
         android:indeterminateTint="@color/color_orange"
@@ -41,9 +41,9 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
-        android:id="@+id/frameProgressBarMovie"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/frame_progressbar_movie"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
         android:background="@color/color_dark_blue"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -52,10 +52,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ProgressBar
-            android:layout_gravity="center"
-            android:id="@+id/detailsProgressBar"
+            android:id="@+id/progressbar_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:indeterminateTint="@color/color_orange" />
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

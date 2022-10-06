@@ -1,5 +1,6 @@
 package com.ndt.themoviedb.ui.home.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.view.LayoutInflater
@@ -9,15 +10,14 @@ import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
 import com.ndt.themoviedb.R
 import com.ndt.themoviedb.data.model.Movie
-import com.ndt.themoviedb.ui.home.HomeFragment
 import com.ndt.themoviedb.ui.utils.GetImageAsyncTask
 import com.ndt.themoviedb.ui.utils.OnClickListener
 import com.ndt.themoviedb.ui.utils.OnFetchImageListener
-import com.ndt.themoviedb.ui.utils.UrlConstant
+import com.ndt.themoviedb.ui.utils.constant.UrlConstant
 import kotlinx.android.synthetic.main.item_slide.view.*
 
 class SliderViewPagerAdapter : PagerAdapter() {
-    private val movie = arrayListOf<Movie>()
+    private val list = arrayListOf<Movie>()
     private var slideItemClickListener: OnClickListener<Movie>? = null
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
@@ -26,11 +26,11 @@ class SliderViewPagerAdapter : PagerAdapter() {
         val slideLayout = inflater.inflate(R.layout.item_slide, null)
         slideLayout.youtube_image_view.setOnClickListener {
             slideItemClickListener?.click(
-                movie[position]
+                list[position]
             )
         }
-        getImageSlide(slideLayout.slide_image_view, this.movie[position])
-        slideLayout.titleSlideTextView.text = movie[position].title
+        getImageSlide(slideLayout.slide_image_view, this.list[position])
+        slideLayout.text_title_slide.text = list[position].title
         container.addView(slideLayout)
         return slideLayout
     }
@@ -52,7 +52,7 @@ class SliderViewPagerAdapter : PagerAdapter() {
             }).execute(UrlConstant.BASE_URL_IMAGE + movie?.backdropPath)
     }
 
-    override fun getCount(): Int = movie.size
+    override fun getCount(): Int = list.size
 
     override fun isViewFromObject(view: View, o: Any): Boolean = view === o
 
@@ -65,8 +65,16 @@ class SliderViewPagerAdapter : PagerAdapter() {
     }
 
     fun setSlideItemClickListener(
-        movieItemClickListener: HomeFragment
+        movieItemClickListener: OnClickListener<Movie>?
     ) {
         this.slideItemClickListener = movieItemClickListener
+    }
+
+    fun updateData(newItems: List<Movie>) {
+        list.apply {
+            if (isNotEmpty()) clear()
+            addAll(newItems)
+        }
+        notifyDataSetChanged()
     }
 }

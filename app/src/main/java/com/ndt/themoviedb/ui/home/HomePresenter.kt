@@ -4,7 +4,7 @@ import com.ndt.themoviedb.data.repository.MovieRepository
 import com.ndt.themoviedb.data.source.remote.OnDataLoadedCallback
 import com.ndt.themoviedb.data.source.remote.response.GenresResponse
 import com.ndt.themoviedb.data.source.remote.response.MoviesResponse
-import com.ndt.themoviedb.ui.utils.UrlConstant
+import com.ndt.themoviedb.ui.utils.constant.UrlConstant
 
 class HomePresenter(private val movieRepository: MovieRepository) : HomeContract.Presenter {
     private var view: HomeContract.View? = null
@@ -12,17 +12,21 @@ class HomePresenter(private val movieRepository: MovieRepository) : HomeContract
     override fun onStart() {
         view?.onLoading(false)
         getGenres()
+        getMovie(UrlConstant.BASE_NOW_PLAYING)
+        getMovie(UrlConstant.BASE_UPCOMING)
+        getMovie(UrlConstant.BASE_POPULAR)
     }
 
     override fun onStop() {
-        //TODO implement later
+        //TODO something
     }
 
-    override fun setView(view: HomeFragment) {
+    override fun setView(view: HomeContract.View?) {
         this.view = view
     }
 
-    override fun getGenres() {
+    override
+    fun getGenres() {
         movieRepository.getGenres(object : OnDataLoadedCallback<GenresResponse> {
 
             override fun onError(e: Exception) {
@@ -50,6 +54,12 @@ class HomePresenter(private val movieRepository: MovieRepository) : HomeContract
                 override fun onSuccess(data: MoviesResponse?) {
                     data ?: return
                     when (type) {
+                        UrlConstant.BASE_NOW_PLAYING ->
+                            view?.onGetMoviesNowPlayingSuccess(data.listMovie)
+//                        UrlConstant.BASE_UPCOMING ->
+//                            view?.onGetMoviesUpcomingSuccess(data.listMovie)
+                        UrlConstant.BASE_POPULAR ->
+                            view?.onGetMoviesPopularSuccess(data.listMovie)
                         UrlConstant.BASE_GENRES_ID ->
                             view?.onGetMoviesByGenresIDSuccess(data.listMovie)
                     }

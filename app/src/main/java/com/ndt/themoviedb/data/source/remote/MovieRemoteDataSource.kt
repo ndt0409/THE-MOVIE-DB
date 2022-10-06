@@ -3,10 +3,13 @@ package com.ndt.themoviedb.data.source.remote
 import com.ndt.themoviedb.data.source.MovieDataSource
 import com.ndt.themoviedb.data.source.remote.fetchjson.GenresResponseHandler
 import com.ndt.themoviedb.data.source.remote.fetchjson.GetDataFromUrl
+import com.ndt.themoviedb.data.source.remote.fetchjson.MovieDetailsResponseHandler
 import com.ndt.themoviedb.data.source.remote.fetchjson.MoviesResponseHandler
 import com.ndt.themoviedb.data.source.remote.response.GenresResponse
+import com.ndt.themoviedb.data.source.remote.response.MovieDetailsResponse
 import com.ndt.themoviedb.data.source.remote.response.MoviesResponse
-import com.ndt.themoviedb.ui.utils.UrlConstant
+import com.ndt.themoviedb.ui.utils.constant.APIConstant
+import com.ndt.themoviedb.ui.utils.constant.UrlConstant
 
 class MovieRemoteDataSource : MovieDataSource.Remote {
 
@@ -40,6 +43,15 @@ class MovieRemoteDataSource : MovieDataSource.Remote {
                     else -> ""
                 }
         GetDataFromUrl(MoviesResponseHandler(), listener).execute(url)
+    }
+
+    override fun getMovieDetails(
+        movieID: Int,
+        listener: OnDataLoadedCallback<MovieDetailsResponse>
+    ) {
+        val url = APIConstant.URL_MOVIE +
+                movieID + APIConstant.QUERY_DETAIL
+        GetDataFromUrl(MovieDetailsResponseHandler(), listener).execute(url)
     }
 
     companion object {

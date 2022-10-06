@@ -20,12 +20,13 @@ abstract class BaseFragment<VBinding : ViewBinding>(private val bindingLayoutInf
         savedInstanceState: Bundle?
     ): View? {
         binding = bindingLayoutInflater(layoutInflater)
-        initData()
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initData()
+        initAdapter()
     }
 
     override fun onDestroyView() {
@@ -34,4 +35,5 @@ abstract class BaseFragment<VBinding : ViewBinding>(private val bindingLayoutInf
     }
 
     abstract fun initData()
+    abstract fun initAdapter()
 }

@@ -9,9 +9,8 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_base"
-        android:theme="@style/Widget.MaterialComponents.Toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:navigationIcon="?attr/homeAsUpIndicator"
-        />
+        android:theme="@style/Widget.MaterialComponents.Toolbar"
+        app:navigationIcon="?attr/homeAsUpIndicator" />
 </com.google.android.material.appbar.AppBarLayout>

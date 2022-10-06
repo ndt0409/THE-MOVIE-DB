@@ -3,8 +3,6 @@ package com.ndt.themoviedb.ui.splash
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import com.ndt.themoviedb.R
 import com.ndt.themoviedb.ui.mainscreen.MainActivity
 import java.util.*

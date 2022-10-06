@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:background="@color/black">
 
     <include
         android:id="@+id/include"
         layout="@layout/toolbar_base" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/detailsSwipeRefresh"
+        android:id="@+id/swipe_refresh_detail"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/dp_0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/include">
 
@@ -25,8 +25,8 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/backdropImageView"
-                    android:layout_width="0dp"
+                    android:id="@+id/image_backdrop"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="@dimen/dp_275"
                     android:background="@color/color_dark_blue"
                     android:scaleType="centerCrop"
@@ -35,28 +35,28 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="0dp"
+                    android:id="@+id/image_view"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="@dimen/dp_80"
                     android:src="@drawable/gradient_bg"
-                    app:layout_constraintBottom_toBottomOf="@+id/backdropImageView"
-                    app:layout_constraintEnd_toEndOf="@+id/backdropImageView"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_backdrop"
+                    app:layout_constraintEnd_toEndOf="@+id/image_backdrop"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView"
+                    android:id="@+id/card_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
-                    android:outlineAmbientShadowColor="@android:color/white"
-                    android:outlineSpotShadowColor="@android:color/white"
+                    android:outlineAmbientShadowColor="@color/white"
+                    android:outlineSpotShadowColor="@color/white"
                     app:cardCornerRadius="@dimen/dp_5"
-                    app:layout_constraintBottom_toBottomOf="@+id/backdropImageView"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_backdrop"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/backdropImageView">
+                    app:layout_constraintTop_toBottomOf="@+id/image_backdrop">
 
                     <ImageView
-                        android:id="@+id/posterImageView"
+                        android:id="@+id/img_poster"
                         android:layout_width="@dimen/dp_125"
                         android:layout_height="@dimen/dp_175"
                         android:background="@drawable/placeholder"
@@ -67,9 +67,9 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
-                    android:id="@+id/titleTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:id="@+id/text_title"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_0"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_16"
                     android:layout_marginBottom="@dimen/dp_5"
@@ -77,39 +77,39 @@
                     android:orientation="vertical"
                     android:text="@string/app_name"
                     android:textAllCaps="true"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_18"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_view"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/cardView"
-                    app:layout_constraintTop_toTopOf="@+id/backdropImageView" />
+                    app:layout_constraintStart_toEndOf="@+id/card_view"
+                    app:layout_constraintTop_toTopOf="@+id/image_backdrop" />
 
                 <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/genresChipGroup"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:id="@+id/chip_group_genres"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_0"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_marginEnd="@dimen/dp_16"
                     app:chipSpacing="@dimen/dp_8"
-                    app:layout_constraintBottom_toBottomOf="@+id/cardView"
+                    app:layout_constraintBottom_toBottomOf="@+id/card_view"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/cardView"
-                    app:layout_constraintTop_toBottomOf="@+id/backdropImageView"
+                    app:layout_constraintStart_toEndOf="@+id/card_view"
+                    app:layout_constraintTop_toBottomOf="@+id/image_backdrop"
                     app:singleSelection="true" />
 
                 <View
-                    android:id="@+id/dividerView"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
+                    android:id="@+id/divider_view"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_1"
                     android:layout_marginTop="@dimen/dp_24"
                     android:background="@color/color_dark_blue"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView" />
+                    app:layout_constraintTop_toBottomOf="@+id/card_view" />
 
                 <TextView
-                    android:id="@+id/releaseDateLabel"
+                    android:id="@+id/text_label_release_vote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
@@ -118,61 +118,61 @@
                     android:text="@string/release_date"
                     android:textColor="@color/color_dark_blue"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/favoriteLabel"
-                    app:layout_constraintTop_toBottomOf="@+id/releaseDateTexView" />
+                    app:layout_constraintStart_toEndOf="@+id/text_label_favorite"
+                    app:layout_constraintTop_toBottomOf="@+id/text_release_date" />
 
                 <TextView
-                    android:id="@+id/releaseDateTexView"
+                    android:id="@+id/text_release_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_16"
-                    android:drawableStart="@drawable/ic_av_timer"
                     android:drawablePadding="@dimen/dp_8"
                     android:gravity="center"
                     android:textColor="@android:color/white"
-                    app:layout_constraintEnd_toEndOf="@+id/releaseDateLabel"
-                    app:layout_constraintStart_toStartOf="@+id/releaseDateLabel"
-                    app:layout_constraintTop_toBottomOf="@+id/dividerView" />
+                    app:layout_constraintEnd_toEndOf="@+id/text_label_release_vote"
+                    app:layout_constraintStart_toStartOf="@+id/text_label_release_vote"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_view"
+                    app:drawableStartCompat="@drawable/ic_av_timer" />
 
                 <TextView
-                    android:id="@+id/voteLabel"
+                    android:id="@+id/text_label_vote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/vote"
                     android:textColor="@color/color_dark_blue"
-                    app:layout_constraintEnd_toStartOf="@+id/favoriteLabel"
+                    app:layout_constraintEnd_toStartOf="@+id/text_label_favorite"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/voteTextView" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_vote" />
 
                 <TextView
-                    android:id="@+id/voteTextView"
+                    android:id="@+id/text_vote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_16"
-                    android:drawableEnd="@drawable/ic_star"
                     android:drawablePadding="@dimen/dp_8"
                     android:gravity="center"
                     android:text="@string/vote_text"
                     android:textColor="@android:color/white"
-                    app:layout_constraintEnd_toEndOf="@+id/voteLabel"
-                    app:layout_constraintStart_toStartOf="@+id/voteLabel"
-                    app:layout_constraintTop_toBottomOf="@+id/dividerView" />
+                    app:layout_constraintEnd_toEndOf="@+id/text_label_vote"
+                    app:layout_constraintStart_toStartOf="@+id/text_label_vote"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_view"
+                    app:drawableEndCompat="@drawable/ic_star" />
 
                 <TextView
-                    android:id="@+id/favoriteLabel"
+                    android:id="@+id/text_label_favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/favorite"
                     android:textColor="@color/color_dark_blue"
-                    app:layout_constraintEnd_toEndOf="@+id/favoriteImageView"
-                    app:layout_constraintStart_toStartOf="@+id/favoriteImageView"
-                    app:layout_constraintTop_toBottomOf="@+id/favoriteImageView" />
+                    app:layout_constraintEnd_toEndOf="@+id/image_favorite"
+                    app:layout_constraintStart_toStartOf="@+id/image_favorite"
+                    app:layout_constraintTop_toBottomOf="@+id/image_favorite" />
 
                 <ImageView
-                    android:id="@+id/favoriteImageView"
+                    android:id="@+id/image_favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_16"
@@ -180,34 +180,34 @@
                     android:gravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dividerView" />
+                    app:layout_constraintTop_toBottomOf="@+id/divider_view" />
 
                 <View
-                    android:id="@+id/dividerBottomView"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
+                    android:id="@+id/divider_bottom_view"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_1"
                     android:layout_marginTop="@dimen/dp_16"
                     android:background="@color/color_dark_blue"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/voteLabel" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_label_vote" />
 
                 <TextView
-                    android:id="@+id/overViewTextView"
-                    android:layout_width="0dp"
+                    android:id="@+id/text_over_view"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_16"
                     android:layout_marginEnd="@dimen/dp_16"
                     android:lineSpacingExtra="@dimen/dp_8"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dividerBottomView" />
+                    app:layout_constraintTop_toBottomOf="@+id/divider_bottom_view" />
 
                 <TextView
-                    android:id="@+id/titleCastTextView"
-                    android:layout_width="0dp"
+                    android:id="@+id/text_title_cast"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_16"
                     android:background="@color/color_dark_blue"
@@ -217,10 +217,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/overViewTextView" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_over_view" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/castsRecyclerView"
+                    android:id="@+id/recycler_casts"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/dp_16"
@@ -228,11 +228,11 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/titleCastTextView" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_title_cast" />
 
                 <TextView
-                    android:id="@+id/titleProduceTextView"
-                    android:layout_width="0dp"
+                    android:id="@+id/text_title_produce"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_16"
                     android:background="@color/color_dark_blue"
@@ -242,10 +242,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/castsRecyclerView" />
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_casts" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/producesRecyclerView"
+                    android:id="@+id/recycler_produces"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/dp_16"
@@ -253,24 +253,24 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/titleProduceTextView" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_title_produce" />
 
                 <TextView
-                    android:id="@+id/titleTrailerTextView"
-                    android:layout_width="0dp"
+                    android:id="@+id/text_title_trailer"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_16"
                     android:background="@color/color_dark_blue"
                     android:padding="@dimen/dp_8"
                     android:text="@string/trailer"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/producesRecyclerView" />
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_produces" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/moviesTrailerRecyclerView"
+                    android:id="@+id/recycler_movies_trailer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/dp_16"
@@ -278,15 +278,15 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/titleTrailerTextView" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_title_trailer" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <FrameLayout
-        android:id="@+id/frameProgressBarMovie"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/frame_progressbar_movie"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
         android:background="@color/color_dark_blue"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -295,7 +295,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ProgressBar
-            android:id="@+id/detailsProgressBar"
+            android:id="@+id/progressbar_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

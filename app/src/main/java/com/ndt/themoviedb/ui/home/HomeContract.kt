@@ -3,11 +3,15 @@ package com.ndt.themoviedb.ui.home
 import com.ndt.themoviedb.data.model.Genres
 import com.ndt.themoviedb.data.model.Movie
 import com.ndt.themoviedb.ui.base.BasePresenter
-import com.ndt.themoviedb.ui.utils.UrlConstant
+import com.ndt.themoviedb.ui.utils.constant.UrlConstant
 
 interface HomeContract {
+
     interface View {
         fun onGetGenresSuccess(genres: List<Genres>)
+        fun onGetMoviesNowPlayingSuccess(movies: List<Movie>)
+        //fun onGetMoviesUpcomingSuccess(movies: List<Movie>)
+        fun onGetMoviesPopularSuccess(movies: List<Movie>)
         fun onGetMoviesByGenresIDSuccess(movies: List<Movie>)
         fun onError(exception: Exception?)
         fun onLoading(isLoad: Boolean)

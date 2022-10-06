@@ -13,6 +13,7 @@
     <string name="produces">produces</string>
     <string name="casts">casts</string>
     <string name="vote">vote</string>
-    <string name="release_date">release_date</string>
+    <string name="release_date">release date</string>
+    <string name="message_null_result">0 result</string>
 
 </resources>

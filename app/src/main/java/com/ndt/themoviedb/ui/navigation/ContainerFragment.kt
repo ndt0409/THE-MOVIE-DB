@@ -3,7 +3,6 @@ package com.ndt.themoviedb.ui.navigation
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentTransaction
 import com.ndt.themoviedb.R
 import com.ndt.themoviedb.databinding.FragmentContainerBinding
 import com.ndt.themoviedb.ui.base.BaseFragment
@@ -14,7 +13,11 @@ class ContainerFragment :
     private var startingPosition = 0
 
     override fun initData() {
-        //TODO implement later
+        TODO("Not yet implemented")
+    }
+
+    override fun initAdapter() {
+        TODO("Not yet implemented")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

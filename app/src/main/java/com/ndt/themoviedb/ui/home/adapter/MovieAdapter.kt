@@ -2,36 +2,35 @@ package com.ndt.themoviedb.ui.home.adapter
 
 import android.graphics.Bitmap
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.ndt.themoviedb.R
 import com.ndt.themoviedb.data.model.Movie
 import com.ndt.themoviedb.databinding.ItemMovieBinding
 import com.ndt.themoviedb.ui.base.BaseAdapter
 import com.ndt.themoviedb.ui.base.BaseViewHolder
 import com.ndt.themoviedb.ui.utils.GetImageAsyncTask
 import com.ndt.themoviedb.ui.utils.OnFetchImageListener
-import com.ndt.themoviedb.ui.utils.UrlConstant
-import kotlinx.android.synthetic.main.item_movie.view.*
+import com.ndt.themoviedb.ui.utils.constant.UrlConstant
 
-class MovieAdapter : BaseAdapter<Movie, MovieAdapter.ViewHolder>() {
-    var onItemClick: (Movie, Int) -> Unit = { _, _ -> }
+class MovieAdapter(var onItemClick: (Movie, Int) -> Unit = { _, _ -> }) :
+    BaseAdapter<Movie, MovieAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_movie, parent, false), onItemClick
-        )
+    private var binding: ItemMovieBinding? = null
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        binding =
+            ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding!!, onItemClick)
+    }
 
     class ViewHolder(
-        itemView: View,
+        private val binding: ItemMovieBinding,
         onItemClick: (Movie, Int) -> Unit
-    ) : BaseViewHolder<Movie>(itemView, onItemClick) {
+    ) : BaseViewHolder<Movie>(binding, onItemClick) {
 
         override fun onBindData(itemData: Movie) {
             super.onBindData(itemData)
             getImageCircle(itemData)
-            itemView.imdb_text_view.text = itemData.voteAverage.toString()
+            binding.imdbTextView.text = itemData.voteAverage.toString()
         }
 
         private fun getImageCircle(movie: Movie?) {
@@ -43,9 +42,10 @@ class MovieAdapter : BaseAdapter<Movie, MovieAdapter.ViewHolder>() {
                     }
 
                     override fun onImageLoaded(bitmap: Bitmap?) {
-                        bitmap?.let { itemView.item_movie_image_view.setImageBitmap(bitmap) }
+                        bitmap?.let { binding.itemMovieImageView.setImageBitmap(bitmap) }
                     }
                 }).execute(UrlConstant.BASE_URL_IMAGE + movie?.posterPath)
         }
     }
 }
+
