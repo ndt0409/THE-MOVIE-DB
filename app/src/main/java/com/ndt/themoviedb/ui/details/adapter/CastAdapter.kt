@@ -14,18 +14,13 @@ import com.ndt.themoviedb.ui.utils.constant.UrlConstant
 class CastAdapter(var onItemClick: (Cast, Int) -> Unit = { _, _ -> }) :
     BaseAdapter<Cast, CastAdapter.ViewHolder>() {
 
-    private var binding: ItemCastBinding? = null
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
-    {
-        binding =
-            ItemCastBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding!!, onItemClick)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemCastBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding, onItemClick)
     }
 
     class ViewHolder(
-        private val binding: ItemCastBinding,
-        onItemClick: (Cast, Int) -> Unit
+        private val binding: ItemCastBinding, onItemClick: (Cast, Int) -> Unit
     ) : BaseViewHolder<Cast>(binding, onItemClick) {
 
         override fun onBindData(itemData: Cast) {
@@ -35,17 +30,16 @@ class CastAdapter(var onItemClick: (Cast, Int) -> Unit = { _, _ -> }) :
         }
 
         private fun getImageCircle(cast: Cast?) {
-            GetImageAsyncTask(
-                object : OnFetchImageListener {
+            GetImageAsyncTask(object : OnFetchImageListener {
 
-                    override fun onImageError(e: Exception?) {
-                        e?.printStackTrace()
-                    }
+                override fun onImageError(e: Exception?) {
+                    e?.printStackTrace()
+                }
 
-                    override fun onImageLoaded(bitmap: Bitmap?) {
-                        bitmap?.let { binding.imageCastProfile.setImageBitmap(bitmap) }
-                    }
-                }).execute(UrlConstant.BASE_URL_IMAGE + cast?.profilePath)
+                override fun onImageLoaded(bitmap: Bitmap?) {
+                    bitmap?.let { binding.imageCastProfile.setImageBitmap(bitmap) }
+                }
+            }).execute(UrlConstant.BASE_URL_IMAGE + cast?.profilePath)
         }
     }
 }

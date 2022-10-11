@@ -13,11 +13,11 @@ class ContainerFragment :
     private var startingPosition = 0
 
     override fun initData() {
-        TODO("Not yet implemented")
+        //TODO implement later
     }
 
     override fun initAdapter() {
-        TODO("Not yet implemented")
+        //TODO implement later
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

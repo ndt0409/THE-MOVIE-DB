@@ -1,5 +1,6 @@
 package com.ndt.themoviedb.data.repository
 
+import com.ndt.themoviedb.data.model.Category
 import com.ndt.themoviedb.data.source.MovieDataSource
 import com.ndt.themoviedb.data.source.local.MovieLocalDataSource
 import com.ndt.themoviedb.data.source.remote.MovieRemoteDataSource
@@ -9,8 +10,13 @@ import com.ndt.themoviedb.data.source.remote.response.MovieDetailsResponse
 import com.ndt.themoviedb.data.source.remote.response.MoviesResponse
 
 class MovieRepository(
-    private val remoteMovie: MovieDataSource.Remote
+    private val remoteMovie: MovieDataSource.Remote,
+    private val localMovie: MovieDataSource.Local
 ) {
+    fun getCategories(listener: OnDataLoadedCallback<List<Category>>) {
+        localMovie.getCategories(listener)
+    }
+
     fun getGenres(listener: OnDataLoadedCallback<GenresResponse>) {
         remoteMovie.getGenres(listener)
     }
@@ -35,9 +41,10 @@ class MovieRepository(
         private var instance: MovieRepository? = null
         fun getInstance(
             movieRemoteDataSource: MovieRemoteDataSource,
-            instance: MovieLocalDataSource
-        ) = this.instance ?: MovieRepository(
-            movieRemoteDataSource
+            localMovieDataSource: MovieDataSource.Local
+        ) = instance ?: MovieRepository(
+            movieRemoteDataSource,
+            localMovieDataSource
         ).also { this.instance = it }
     }
 }

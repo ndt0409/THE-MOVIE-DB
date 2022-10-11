@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         )
             .commit()
     }
+
     override fun onBackPressed() {
         val fragment = supportFragmentManager.findFragmentById(R.id.main_frame_layout)
         if (fragment is ContainerFragment) {

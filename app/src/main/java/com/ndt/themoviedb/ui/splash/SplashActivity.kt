@@ -21,6 +21,6 @@ class SplashActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val DELAY_TIME = 1500L
+       const val DELAY_TIME = 1500L
     }
 }

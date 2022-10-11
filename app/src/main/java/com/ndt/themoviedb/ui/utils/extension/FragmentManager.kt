@@ -41,3 +41,18 @@ fun Fragment.addFragment(type: String, query: String, title: String) {
         }
     }
 }
+
+fun Fragment.addFragment(fragment: Fragment) {
+    activity?.let {
+        if (NetworkUtil.isConnectedToNetwork(it)) {
+            it.supportFragmentManager.beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .replace(R.id.main_frame_layout, fragment)
+                .addToBackStack(null)
+                .commit()
+        } else {
+            val message = getString(R.string.check_internet_fail)
+            Toast.makeText(it, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+}

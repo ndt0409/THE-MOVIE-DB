@@ -15,5 +15,12 @@
     <string name="vote">vote</string>
     <string name="release_date">release date</string>
     <string name="message_null_result">0 result</string>
+    <string name="genres">Genres</string>
+    <string name="categories">Categories</string>
+    <string name="top_rated">Top rated</string>
+    <string name="menu_search">Search</string>
+    <string name="navigation_home">Home</string>
+    <string name="navigation_favorite">Favorite</string>
+    <string name="movie_name">Name</string>
 
 </resources>

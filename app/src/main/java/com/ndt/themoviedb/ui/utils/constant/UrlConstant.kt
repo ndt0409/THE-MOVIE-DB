@@ -10,6 +10,7 @@ object UrlConstant {
     const val BASE_APPEND = "&append_to_response="
     const val BASE_GENRES_ID = "&with_genres="
     const val BASE_MOVIE_BY_ID = "/discover/movie"
+    const val BASE_SEARCH = "/discover/movie"
     const val BASE_NOW_PLAYING = "/movie/now_playing"
     const val BASE_POPULAR = "/movie/popular"
     const val BASE_TOP_RATE = "/movie/top_rated"

@@ -14,12 +14,10 @@ import com.ndt.themoviedb.ui.utils.constant.UrlConstant
 class MovieListAdapter(var onItemClick: (Movie, Int) -> Unit = { _, _ -> }) :
     BaseAdapter<Movie, MovieListAdapter.ViewHolder>() {
 
-    private var binding: ItemListMovieBinding? = null
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding =
+        val binding =
             ItemListMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding!!, onItemClick)
+        return ViewHolder(binding, onItemClick)
     }
 
     class ViewHolder(

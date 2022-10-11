@@ -19,9 +19,11 @@ import com.ndt.themoviedb.ui.base.BaseFragment
 import com.ndt.themoviedb.ui.details.adapter.CastAdapter
 import com.ndt.themoviedb.ui.details.adapter.ProduceAdapter
 import com.ndt.themoviedb.ui.details.adapter.TrailerAdapter
+import com.ndt.themoviedb.ui.mainscreen.MainActivity
 import com.ndt.themoviedb.ui.utils.NetworkUtil
 import com.ndt.themoviedb.ui.utils.constant.UrlConstant
 import com.ndt.themoviedb.ui.utils.extension.addFragment
+import kotlinx.android.synthetic.main.toolbar_base.view.*
 
 class MovieDetailsFragment :
     BaseFragment<FragmentMovieDetailsBinding>(FragmentMovieDetailsBinding::inflate),
@@ -60,6 +62,22 @@ class MovieDetailsFragment :
                     val message = getString(R.string.check_internet_fail)
                     Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
                 }
+            }
+        }
+        initToolBar()
+    }
+
+    private fun initToolBar() {
+        viewBinding.frameProgressbarMovie.toolbar_base?.let {
+            (activity as? MainActivity)?.run {
+                setSupportActionBar(it)
+                supportActionBar?.run {
+                    setDisplayShowTitleEnabled(true)
+                    title = arguments?.getString(UrlConstant.BASE_TITLE)
+                }
+            }
+            it.setNavigationOnClickListener {
+                activity?.run { supportFragmentManager.popBackStack() }
             }
         }
     }
@@ -129,7 +147,7 @@ class MovieDetailsFragment :
         view?.run {
             viewBinding.recyclerCasts.setHasFixedSize(true)
             viewBinding.recyclerCasts.adapter = castAdapter.apply {
-                onItemClick = { cast, _ ->
+               onItemClick = { cast, _ ->
                     addFragment(UrlConstant.BASE_CAST_ID, cast.id.toString(), cast.name)
                 }
             }
