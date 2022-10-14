@@ -6,7 +6,7 @@ import androidx.viewbinding.ViewBinding
 open class BaseViewHolder<T>(binding: ViewBinding, private val onItemClick: (T, Int) -> Unit) :
     RecyclerView.ViewHolder(binding.root) {
 
-    private var itemData: T? = null
+    var itemData: T? = null
 
     init {
         itemView.setOnClickListener {

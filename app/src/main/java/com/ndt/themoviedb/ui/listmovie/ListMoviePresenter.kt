@@ -3,7 +3,7 @@ package com.ndt.themoviedb.ui.listmovie
 import com.ndt.themoviedb.data.repository.MovieRepository
 import com.ndt.themoviedb.data.source.remote.OnDataLoadedCallback
 import com.ndt.themoviedb.data.source.remote.response.MoviesResponse
-import com.ndt.themoviedb.ui.utils.constant.UrlConstant
+import com.ndt.themoviedb.utils.constant.UrlConstant
 
 class ListMoviePresenter(private val movieRepository: MovieRepository) :
     ListMovieContract.Presenter {

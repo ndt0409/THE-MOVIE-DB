@@ -8,8 +8,8 @@ import com.ndt.themoviedb.data.source.remote.fetchjson.MoviesResponseHandler
 import com.ndt.themoviedb.data.source.remote.response.GenresResponse
 import com.ndt.themoviedb.data.source.remote.response.MovieDetailsResponse
 import com.ndt.themoviedb.data.source.remote.response.MoviesResponse
-import com.ndt.themoviedb.ui.utils.constant.APIConstant
-import com.ndt.themoviedb.ui.utils.constant.UrlConstant
+import com.ndt.themoviedb.utils.constant.APIConstant
+import com.ndt.themoviedb.utils.constant.UrlConstant
 
 class MovieRemoteDataSource : MovieDataSource.Remote {
 

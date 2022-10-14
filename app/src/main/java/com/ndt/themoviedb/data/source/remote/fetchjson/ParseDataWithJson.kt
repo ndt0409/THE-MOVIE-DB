@@ -1,6 +1,6 @@
 package com.ndt.themoviedb.data.source.remote.fetchjson
 
-import com.ndt.themoviedb.ui.utils.constant.UrlConstant
+import com.ndt.themoviedb.utils.constant.UrlConstant
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection

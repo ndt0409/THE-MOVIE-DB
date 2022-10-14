@@ -6,6 +6,7 @@ import com.ndt.themoviedb.data.model.Genres
 import com.ndt.themoviedb.data.model.Movie
 import com.ndt.themoviedb.data.model.Produce
 import com.ndt.themoviedb.data.model.MovieTrailer
+import com.ndt.themoviedb.data.model.Favorite
 import com.ndt.themoviedb.ui.base.BasePresenter
 
 class MovieDetailsContract {
@@ -15,6 +16,9 @@ class MovieDetailsContract {
         fun onGetGenresSuccess(genres: List<Genres>)
         fun onGetCastsSuccess(casts: List<Cast>)
         fun onGetProducesSuccess(produces: List<Produce>)
+        fun onGetMovieTrailerSuccess(movieTrailers: List<MovieTrailer>)
+        fun showFavoriteImage(type: String)
+        fun notifyFavorite(type: String)
         fun onLoading(isLoad: Boolean)
         fun onError(exception: Exception?)
     }
@@ -22,5 +26,6 @@ class MovieDetailsContract {
     interface Presenter : BasePresenter<View?> {
         fun getMovieDetails(movieID: Int)
         fun getImageAsync(strUrl: String?, imageView: ImageView)
+        fun handleFavorites(favorite: Favorite)
     }
 }

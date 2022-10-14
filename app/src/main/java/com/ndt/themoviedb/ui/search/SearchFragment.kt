@@ -13,6 +13,7 @@ import com.ndt.themoviedb.data.model.Genres
 import com.ndt.themoviedb.data.model.Movie
 import com.ndt.themoviedb.data.repository.MovieRepository
 import com.ndt.themoviedb.data.source.local.MovieLocalDataSource
+import com.ndt.themoviedb.data.source.local.dao.FavoritesDaoImpl
 import com.ndt.themoviedb.data.source.remote.MovieRemoteDataSource
 import com.ndt.themoviedb.databinding.FragmentSearchBinding
 import com.ndt.themoviedb.ui.base.BaseFragment
@@ -21,9 +22,9 @@ import com.ndt.themoviedb.ui.home.adapter.MovieAdapter
 import com.ndt.themoviedb.ui.listmovie.ListMovieFragment
 import com.ndt.themoviedb.ui.mainscreen.MainActivity
 import com.ndt.themoviedb.ui.search.adapter.CategoryAdapter
-import com.ndt.themoviedb.ui.utils.NetworkUtil
-import com.ndt.themoviedb.ui.utils.constant.UrlConstant
-import com.ndt.themoviedb.ui.utils.extension.addFragment
+import com.ndt.themoviedb.utils.NetworkUtil
+import com.ndt.themoviedb.utils.constant.UrlConstant
+import com.ndt.themoviedb.utils.extension.addFragment
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import kotlinx.android.synthetic.main.toolbar_base.view.*
 import java.util.*
@@ -37,12 +38,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     private val categoryAdapter: CategoryAdapter by lazy { CategoryAdapter() }
 
     override fun initData() {
-        val movieRepository: MovieRepository =
-            MovieRepository.getInstance(
-                MovieRemoteDataSource.getInstance(),
-                MovieLocalDataSource.getInstance()
-            )
-        presenter = SearchPresenter(movieRepository)
+        context?.let {
+            val movieRepository: MovieRepository =
+                MovieRepository.getInstance(
+                    MovieRemoteDataSource.getInstance(),
+                    MovieLocalDataSource.getInstance(FavoritesDaoImpl.getInstance(it))
+                )
+            presenter = SearchPresenter(movieRepository)
+        }
 
         presenter.setView(this)
         onLoading(false)

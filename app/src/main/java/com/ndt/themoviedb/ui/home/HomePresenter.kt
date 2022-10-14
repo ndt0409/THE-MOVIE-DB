@@ -4,7 +4,7 @@ import com.ndt.themoviedb.data.repository.MovieRepository
 import com.ndt.themoviedb.data.source.remote.OnDataLoadedCallback
 import com.ndt.themoviedb.data.source.remote.response.GenresResponse
 import com.ndt.themoviedb.data.source.remote.response.MoviesResponse
-import com.ndt.themoviedb.ui.utils.constant.UrlConstant
+import com.ndt.themoviedb.utils.constant.UrlConstant
 
 class HomePresenter(private val movieRepository: MovieRepository) : HomeContract.Presenter {
     private var view: HomeContract.View? = null

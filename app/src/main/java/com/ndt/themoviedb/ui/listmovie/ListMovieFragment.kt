@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.AbsListView
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
@@ -14,18 +13,14 @@ import com.ndt.themoviedb.data.model.Movie
 import com.ndt.themoviedb.data.model.MovieResultPage
 import com.ndt.themoviedb.data.repository.MovieRepository
 import com.ndt.themoviedb.data.source.local.MovieLocalDataSource
+import com.ndt.themoviedb.data.source.local.dao.FavoritesDaoImpl
 import com.ndt.themoviedb.data.source.remote.MovieRemoteDataSource
 import com.ndt.themoviedb.databinding.FragmentListMovieBinding
-import com.ndt.themoviedb.databinding.FragmentSearchBinding
-import com.ndt.themoviedb.databinding.ItemListMovieBinding
 import com.ndt.themoviedb.ui.base.BaseFragment
 import com.ndt.themoviedb.ui.listmovie.adapter.MovieListAdapter
-import com.ndt.themoviedb.ui.mainscreen.MainActivity
-import com.ndt.themoviedb.ui.utils.NetworkUtil
-import com.ndt.themoviedb.ui.utils.constant.UrlConstant
-import com.ndt.themoviedb.ui.utils.extension.addFragment
-import kotlinx.android.synthetic.main.toolbar_base.*
-import kotlinx.android.synthetic.main.toolbar_base.view.*
+import com.ndt.themoviedb.utils.NetworkUtil
+import com.ndt.themoviedb.utils.constant.UrlConstant
+import com.ndt.themoviedb.utils.extension.addFragment
 
 class ListMovieFragment : BaseFragment<FragmentListMovieBinding>(FragmentListMovieBinding::inflate),
     ListMovieContract.View {
@@ -39,12 +34,14 @@ class ListMovieFragment : BaseFragment<FragmentListMovieBinding>(FragmentListMov
 
 
     override fun initData() {
-        val movieRepository: MovieRepository =
-            MovieRepository.getInstance(
-                MovieRemoteDataSource.getInstance(),
-                MovieLocalDataSource.getInstance()
-            )
-        presenter = ListMoviePresenter(movieRepository)
+        context?.let {
+            val movieRepository: MovieRepository =
+                MovieRepository.getInstance(
+                    MovieRemoteDataSource.getInstance(),
+                    MovieLocalDataSource.getInstance(FavoritesDaoImpl.getInstance(it))
+                )
+            presenter = ListMoviePresenter(movieRepository)
+        }
         presenter.setView(this)
         arguments?.run {
             type = getString(UrlConstant.BASE_TYPE)
@@ -59,22 +56,7 @@ class ListMovieFragment : BaseFragment<FragmentListMovieBinding>(FragmentListMov
             }
         }
 
-        initToolBar()
-    }
-
-    private fun initToolBar() {
-        viewBinding.progressbarLoading.toolbar_base.let {
-            (activity as? MainActivity)?.run {
-                setSupportActionBar(it)
-                supportActionBar?.run {
-                    setDisplayShowTitleEnabled(true)
-                    title = arguments?.getString(UrlConstant.BASE_TITLE)
-                }
-            }
-            it.setNavigationOnClickListener {
-                activity?.run { supportFragmentManager.popBackStack() }
-            }
-        }
+        initAdapter()
     }
 
     override fun onGetMoviesSuccess(movies: List<Movie>) {
@@ -100,10 +82,10 @@ class ListMovieFragment : BaseFragment<FragmentListMovieBinding>(FragmentListMov
     override fun onLoading(isLoad: Boolean) {
         view?.run {
             if (isLoad) {
-                viewBinding.frameProgressbarMovie.isVisible = false
-                viewBinding.progressbarLoading.isVisible = false
+                viewBinding.frameProgressbarMovie.visibility = View.GONE
+                viewBinding.progressbarLoading.visibility = View.GONE
             } else {
-                viewBinding.frameProgressbarMovie.isVisible = true
+                viewBinding.frameProgressbarMovie.visibility = View.VISIBLE
             }
         }
     }

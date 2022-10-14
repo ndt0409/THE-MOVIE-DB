@@ -1,6 +1,5 @@
 package com.ndt.themoviedb.ui.home
 
-import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -10,15 +9,16 @@ import com.ndt.themoviedb.data.model.Genres
 import com.ndt.themoviedb.data.model.Movie
 import com.ndt.themoviedb.data.repository.MovieRepository
 import com.ndt.themoviedb.data.source.local.MovieLocalDataSource
+import com.ndt.themoviedb.data.source.local.dao.FavoritesDaoImpl
 import com.ndt.themoviedb.data.source.remote.MovieRemoteDataSource
 import com.ndt.themoviedb.databinding.FragmentHomeBinding
 import com.ndt.themoviedb.ui.base.BaseFragment
 import com.ndt.themoviedb.ui.home.adapter.MovieAdapter
 import com.ndt.themoviedb.ui.home.adapter.SliderViewPagerAdapter
-import com.ndt.themoviedb.ui.utils.NetworkUtil
-import com.ndt.themoviedb.ui.utils.OnClickListener
-import com.ndt.themoviedb.ui.utils.constant.UrlConstant
-import com.ndt.themoviedb.ui.utils.extension.addFragment
+import com.ndt.themoviedb.utils.NetworkUtil
+import com.ndt.themoviedb.utils.OnClickListener
+import com.ndt.themoviedb.utils.constant.UrlConstant
+import com.ndt.themoviedb.utils.extension.addFragment
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -33,12 +33,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private var genresSelected = 0
 
     override fun initData() {
-        val movieRepository: MovieRepository =
-            MovieRepository.getInstance(
-                MovieRemoteDataSource.getInstance(),
-                MovieLocalDataSource.getInstance()
-            )
-        presenter = HomePresenter(movieRepository)
+        context?.let {
+            val movieRepository: MovieRepository =
+                MovieRepository.getInstance(
+                    MovieRemoteDataSource.getInstance(),
+                    MovieLocalDataSource.getInstance(FavoritesDaoImpl.getInstance(it))
+                )
+            presenter = HomePresenter(movieRepository)
+        }
         presenter.setView(this)
         activity?.let {
             if (NetworkUtil.isConnectedToNetwork(it)) {

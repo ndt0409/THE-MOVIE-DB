@@ -4,7 +4,7 @@ import com.ndt.themoviedb.data.model.Category
 import com.ndt.themoviedb.data.model.Genres
 import com.ndt.themoviedb.data.model.Movie
 import com.ndt.themoviedb.ui.base.BasePresenter
-import com.ndt.themoviedb.ui.utils.constant.UrlConstant
+import com.ndt.themoviedb.utils.constant.UrlConstant
 
 interface SearchContract {
     interface View {

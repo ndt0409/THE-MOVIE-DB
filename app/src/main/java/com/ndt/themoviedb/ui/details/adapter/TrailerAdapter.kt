@@ -7,9 +7,9 @@ import com.ndt.themoviedb.data.model.MovieTrailer
 import com.ndt.themoviedb.databinding.ItemTrailerBinding
 import com.ndt.themoviedb.ui.base.BaseAdapter
 import com.ndt.themoviedb.ui.base.BaseViewHolder
-import com.ndt.themoviedb.ui.utils.GetImageAsyncTask
-import com.ndt.themoviedb.ui.utils.OnFetchImageListener
-import com.ndt.themoviedb.ui.utils.constant.UrlConstant
+import com.ndt.themoviedb.utils.GetImageAsyncTask
+import com.ndt.themoviedb.utils.OnFetchImageListener
+import com.ndt.themoviedb.utils.constant.UrlConstant
 
 class TrailerAdapter(var onItemClick: (MovieTrailer, Int) -> Unit = { _, _ -> }) :
     BaseAdapter<MovieTrailer, TrailerAdapter.ViewHolder>() {

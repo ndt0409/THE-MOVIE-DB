@@ -23,4 +23,10 @@
     <string name="navigation_favorite">Favorite</string>
     <string name="movie_name">Name</string>
 
+    <string name="notification_delete_success">Delete favorite success</string>
+    <string name="notification_delete_failed">Delete favorite failed</string>
+    <string name="notification_add_favorite_success">This movie is added to favorite items</string>
+    <string name="notification_add_favorite_failed">Failed</string>
+    <string name="nothing_found">Nothing found</string>
+
 </resources>

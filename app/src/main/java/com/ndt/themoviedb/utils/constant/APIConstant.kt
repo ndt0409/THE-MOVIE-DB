@@ -1,4 +1,4 @@
-package com.ndt.themoviedb.ui.utils.constant
+package com.ndt.themoviedb.utils.constant
 
 import com.ndt.themoviedb.BuildConfig
 

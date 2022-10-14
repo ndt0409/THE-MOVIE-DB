@@ -1,6 +1,5 @@
 package com.ndt.themoviedb.ui.home.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.view.LayoutInflater
@@ -10,12 +9,13 @@ import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
 import com.ndt.themoviedb.R
 import com.ndt.themoviedb.data.model.Movie
-import com.ndt.themoviedb.ui.utils.GetImageAsyncTask
-import com.ndt.themoviedb.ui.utils.OnClickListener
-import com.ndt.themoviedb.ui.utils.OnFetchImageListener
-import com.ndt.themoviedb.ui.utils.constant.UrlConstant
+import com.ndt.themoviedb.utils.GetImageAsyncTask
+import com.ndt.themoviedb.utils.OnClickListener
+import com.ndt.themoviedb.utils.OnFetchImageListener
+import com.ndt.themoviedb.utils.constant.UrlConstant
 import kotlinx.android.synthetic.main.item_slide.view.*
 
+@Suppress("DEPRECATION")
 class SliderViewPagerAdapter : PagerAdapter() {
     private val list = arrayListOf<Movie>()
     private var slideItemClickListener: OnClickListener<Movie>? = null

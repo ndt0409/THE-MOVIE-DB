@@ -7,9 +7,9 @@ import com.ndt.themoviedb.data.model.Cast
 import com.ndt.themoviedb.databinding.ItemCastBinding
 import com.ndt.themoviedb.ui.base.BaseAdapter
 import com.ndt.themoviedb.ui.base.BaseViewHolder
-import com.ndt.themoviedb.ui.utils.GetImageAsyncTask
-import com.ndt.themoviedb.ui.utils.OnFetchImageListener
-import com.ndt.themoviedb.ui.utils.constant.UrlConstant
+import com.ndt.themoviedb.utils.GetImageAsyncTask
+import com.ndt.themoviedb.utils.OnFetchImageListener
+import com.ndt.themoviedb.utils.constant.UrlConstant
 
 class CastAdapter(var onItemClick: (Cast, Int) -> Unit = { _, _ -> }) :
     BaseAdapter<Cast, CastAdapter.ViewHolder>() {

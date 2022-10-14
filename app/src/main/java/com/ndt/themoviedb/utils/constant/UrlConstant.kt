@@ -1,4 +1,4 @@
-package com.ndt.themoviedb.ui.utils.constant
+package com.ndt.themoviedb.utils.constant
 
 import com.ndt.themoviedb.BuildConfig
 
@@ -27,6 +27,12 @@ object UrlConstant {
     const val BASE_URL_IMAGE_DEFAULT = "/hqdefault.jpg"
     const val BASE_DELAY_SLIDE = 4000L
     const val BASE_TYPE = "type"
+    const val BASE_DATABASE_NAME = "favorites.db"
+    const val BASE_DATABASE_VERSION = 1
+    const val BASE_NOTIFY_ADD_FAVORITE_SUCCESS = "add success"
+    const val BASE_NOTIFY_ADD_FAVORITE_ERROR = "add error"
+    const val BASE_NOTIFY_DELETE_FAVORITE_SUCCESS = "delete success"
+    const val BASE_NOTIFY_DELETE_FAVORITE_ERROR = "delete error"
 
     const val BASE_PAGE_DEFAULT = 1
     const val BASE_QUERY_DEFAULT = "1"

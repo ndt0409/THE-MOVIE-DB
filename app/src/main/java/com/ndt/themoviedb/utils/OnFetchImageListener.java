@@ -1,4 +1,4 @@
-package com.ndt.themoviedb.ui.utils;
+package com.ndt.themoviedb.utils;
 
 import android.graphics.Bitmap;
 
