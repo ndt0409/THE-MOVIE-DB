@@ -130,6 +130,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         movieSlideAdapter.updateData(movies)
     }
 
+    override fun onGetMoviesUpcomingSuccess(movies: List<Movie>) {
+        upcomingAdapter.updateData(movies)
+    }
+
     override fun onGetMoviesPopularSuccess(movies: List<Movie>) {
         popularAdapter.updateData(movies)
     }

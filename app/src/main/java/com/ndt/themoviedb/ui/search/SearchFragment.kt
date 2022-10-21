@@ -16,6 +16,7 @@ import com.ndt.themoviedb.data.source.local.MovieLocalDataSource
 import com.ndt.themoviedb.data.source.local.dao.FavoritesDaoImpl
 import com.ndt.themoviedb.data.source.remote.MovieRemoteDataSource
 import com.ndt.themoviedb.databinding.FragmentSearchBinding
+import com.ndt.themoviedb.databinding.ToolbarBinding
 import com.ndt.themoviedb.ui.base.BaseFragment
 import com.ndt.themoviedb.ui.details.MovieDetailsFragment
 import com.ndt.themoviedb.ui.home.adapter.MovieAdapter
@@ -25,8 +26,6 @@ import com.ndt.themoviedb.ui.search.adapter.CategoryAdapter
 import com.ndt.themoviedb.utils.NetworkUtil
 import com.ndt.themoviedb.utils.constant.UrlConstant
 import com.ndt.themoviedb.utils.extension.addFragment
-import kotlinx.android.synthetic.main.fragment_search.view.*
-import kotlinx.android.synthetic.main.toolbar_base.view.*
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -34,6 +33,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     SearchContract.View {
 
     private lateinit var presenter: SearchContract.Presenter
+    private lateinit var binding: ToolbarBinding
     private val topRatedAdapter: MovieAdapter by lazy { MovieAdapter() }
     private val categoryAdapter: CategoryAdapter by lazy { CategoryAdapter() }
 
@@ -132,7 +132,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     private fun initToolBar() {
-        view?.toolbar_base?.let {
+        binding = ToolbarBinding.inflate(layoutInflater)
+        binding.toolbar.let {
             (activity as? MainActivity)?.run {
                 setSupportActionBar(it)
                 it.setNavigationOnClickListener {
@@ -143,7 +144,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun initAdapter() {
-        view?.run {
+        viewBinding.run {
             categoriesRecyclerView.setHasFixedSize(true)
             categoriesRecyclerView.adapter = categoryAdapter.apply {
                 onItemClick = { category, _ ->

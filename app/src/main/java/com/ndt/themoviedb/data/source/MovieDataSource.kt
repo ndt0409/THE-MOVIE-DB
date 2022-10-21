@@ -2,6 +2,7 @@ package com.ndt.themoviedb.data.source
 
 import com.ndt.themoviedb.data.model.Category
 import com.ndt.themoviedb.data.model.Favorite
+import com.ndt.themoviedb.data.model.Genres
 import com.ndt.themoviedb.data.source.remote.OnDataLoadedCallback
 import com.ndt.themoviedb.data.source.remote.response.GenresResponse
 import com.ndt.themoviedb.data.source.remote.response.MovieDetailsResponse

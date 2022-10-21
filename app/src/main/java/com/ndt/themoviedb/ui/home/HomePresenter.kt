@@ -56,8 +56,8 @@ class HomePresenter(private val movieRepository: MovieRepository) : HomeContract
                     when (type) {
                         UrlConstant.BASE_NOW_PLAYING ->
                             view?.onGetMoviesNowPlayingSuccess(data.listMovie)
-//                        UrlConstant.BASE_UPCOMING ->
-//                            view?.onGetMoviesUpcomingSuccess(data.listMovie)
+                        UrlConstant.BASE_UPCOMING ->
+                            view?.onGetMoviesUpcomingSuccess(data.listMovie)
                         UrlConstant.BASE_POPULAR ->
                             view?.onGetMoviesPopularSuccess(data.listMovie)
                         UrlConstant.BASE_GENRES_ID ->

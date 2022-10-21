@@ -10,17 +10,17 @@ import androidx.fragment.app.FragmentActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ndt.themoviedb.R
 import com.ndt.themoviedb.databinding.FragmentContainerBinding
+import com.ndt.themoviedb.databinding.ToolbarBinding
 import com.ndt.themoviedb.ui.base.BaseFragment
 import com.ndt.themoviedb.ui.favorite.FavoriteFragment
 import com.ndt.themoviedb.ui.home.HomeFragment
 import com.ndt.themoviedb.ui.mainscreen.MainActivity
 import com.ndt.themoviedb.ui.search.SearchFragment
 import com.ndt.themoviedb.utils.showSnackBar
-import kotlinx.android.synthetic.main.toolbar.view.*
 
-@Suppress("DEPRECATION")
 class ContainerFragment :
     BaseFragment<FragmentContainerBinding>(FragmentContainerBinding::inflate) {
+    private lateinit var binding: ToolbarBinding
     private var startingPosition = 0
     private var changeMenu = true
 
@@ -90,7 +90,8 @@ class ContainerFragment :
     }
 
     private fun initToolBar() {
-        view?.toolbar?.let {
+        binding = ToolbarBinding.inflate(layoutInflater)
+        binding.toolbar.let {
             (activity as? MainActivity)?.run { setSupportActionBar(it) }
         }
     }

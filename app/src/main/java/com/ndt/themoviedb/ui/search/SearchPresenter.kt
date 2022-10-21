@@ -12,7 +12,6 @@ class SearchPresenter(private val movieRepository: MovieRepository) : SearchCont
 
     override fun getGenres() {
         movieRepository.getGenres(object : OnDataLoadedCallback<GenresResponse> {
-
             override fun onError(e: Exception) {
                 view?.onError(e)
             }

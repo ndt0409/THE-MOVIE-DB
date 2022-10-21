@@ -3,7 +3,6 @@ package com.ndt.themoviedb.data.repository
 import com.ndt.themoviedb.data.model.Category
 import com.ndt.themoviedb.data.model.Favorite
 import com.ndt.themoviedb.data.source.MovieDataSource
-import com.ndt.themoviedb.data.source.remote.MovieRemoteDataSource
 import com.ndt.themoviedb.data.source.remote.OnDataLoadedCallback
 import com.ndt.themoviedb.data.source.remote.response.GenresResponse
 import com.ndt.themoviedb.data.source.remote.response.MovieDetailsResponse
@@ -56,7 +55,7 @@ class MovieRepository(
     companion object {
         private var instance: MovieRepository? = null
         fun getInstance(
-            movieRemoteDataSource: MovieRemoteDataSource,
+            movieRemoteDataSource: MovieDataSource.Remote,
             localMovieDataSource: MovieDataSource.Local
         ) = instance ?: MovieRepository(
             movieRemoteDataSource,

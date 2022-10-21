@@ -14,7 +14,6 @@ import com.ndt.themoviedb.ui.favorite.adapter.FavoriteAdapter
 import com.ndt.themoviedb.utils.constant.UrlConstant
 import com.ndt.themoviedb.utils.extension.addFragment
 import com.ndt.themoviedb.utils.showSnackBar
-import kotlinx.android.synthetic.main.fragment_favorite.view.*
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -76,10 +75,10 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(FragmentFavoriteB
     override fun onLoading(isLoad: Boolean) {
         view?.run {
             if (isLoad) {
-                swipe_refresh_favorite.isRefreshing = false
-                frame_progressbar_movie.isVisible = false
+                viewBinding.swipeRefreshFavorite.isRefreshing = false
+                viewBinding.frameProgressbarMovie.isVisible = false
             } else {
-                frame_progressbar_movie.isVisible = true
+                viewBinding.frameProgressbarMovie.isVisible = true
             }
         }
     }

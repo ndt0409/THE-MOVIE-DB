@@ -10,7 +10,7 @@ interface HomeContract {
     interface View {
         fun onGetGenresSuccess(genres: List<Genres>)
         fun onGetMoviesNowPlayingSuccess(movies: List<Movie>)
-        //fun onGetMoviesUpcomingSuccess(movies: List<Movie>)
+        fun onGetMoviesUpcomingSuccess(movies: List<Movie>)
         fun onGetMoviesPopularSuccess(movies: List<Movie>)
         fun onGetMoviesByGenresIDSuccess(movies: List<Movie>)
         fun onError(exception: Exception?)

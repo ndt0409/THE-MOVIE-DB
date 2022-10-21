@@ -29,8 +29,6 @@ import com.ndt.themoviedb.utils.NetworkUtil
 import com.ndt.themoviedb.utils.constant.UrlConstant
 import com.ndt.themoviedb.utils.extension.addFragment
 import com.ndt.themoviedb.utils.showSnackBar
-import kotlinx.android.synthetic.main.toolbar_base.view.*
-import java.io.IOException
 
 @Suppress("Detekt.TooManyFunctions")
 class MovieDetailsFragment :
@@ -55,7 +53,7 @@ class MovieDetailsFragment :
         }
         presenter.setView(this)
 
-        viewBinding.frameProgressbarMovie.toolbar_base?.let {
+        viewBinding.include.toolbarBase?.let {
             (activity as? MainActivity)?.run {
                 setSupportActionBar(it)
                 supportActionBar?.run {

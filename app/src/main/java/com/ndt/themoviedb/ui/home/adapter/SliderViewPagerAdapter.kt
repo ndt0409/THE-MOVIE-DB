@@ -7,32 +7,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
-import com.ndt.themoviedb.R
 import com.ndt.themoviedb.data.model.Movie
+import com.ndt.themoviedb.databinding.ItemSlideBinding
 import com.ndt.themoviedb.utils.GetImageAsyncTask
 import com.ndt.themoviedb.utils.OnClickListener
 import com.ndt.themoviedb.utils.OnFetchImageListener
 import com.ndt.themoviedb.utils.constant.UrlConstant
-import kotlinx.android.synthetic.main.item_slide.view.*
 
-@Suppress("DEPRECATION")
 class SliderViewPagerAdapter : PagerAdapter() {
+
+    private lateinit var binding: ItemSlideBinding
     private val list = arrayListOf<Movie>()
     private var slideItemClickListener: OnClickListener<Movie>? = null
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater =
             container.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val slideLayout = inflater.inflate(R.layout.item_slide, null)
-        slideLayout.youtube_image_view.setOnClickListener {
+        binding = ItemSlideBinding.inflate(inflater)
+        binding.youtubeImageView.setOnClickListener {
             slideItemClickListener?.click(
                 list[position]
             )
         }
-        getImageSlide(slideLayout.slide_image_view, this.list[position])
-        slideLayout.text_title_slide.text = list[position].title
-        container.addView(slideLayout)
-        return slideLayout
+        getImageSlide(binding.slideImageView, this.list[position])
+        binding.textTitleSlide.text = list[position].title
+        container.addView(binding.root)
+        return binding
     }
 
     private fun getImageSlide(

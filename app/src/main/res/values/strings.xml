@@ -28,5 +28,9 @@
     <string name="notification_add_favorite_success">This movie is added to favorite items</string>
     <string name="notification_add_favorite_failed">Failed</string>
     <string name="nothing_found">Nothing found</string>
+    <string name="title_exit_app">Exit T-Movie</string>
+    <string name="notification_exit_app">" Are you sure you want to exit?"</string>
+    <string name="title_yes">Yes</string>
+    <string name="title_no">No</string>
 
 </resources>
